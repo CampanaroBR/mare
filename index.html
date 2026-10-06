@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>MARÉ — Sound that moves like the tide</title>
+<meta name="description" content="MARÉ wireless over-ear headphones. A concept product site, designed and coded by Arthur Fonseca.">
+<meta name="theme-color" content="#121214">
+<meta property="og:title" content="MARÉ — Sound that moves like the tide">
+<meta property="og:description" content="Concept product site. Design and code by Arthur Fonseca.">
+<meta property="og:image" content="img/sand-1440.webp">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,300..800&family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="img/sand-2560.webp" imagesrcset="img/sand-1440.webp 1440w, img/sand-2560.webp 2560w" imagesizes="100vw">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js" defer></script>
+</head>
+<body class="loading">
+
+<div id="loader" aria-hidden="true">
+  <div class="loader-mark">
+    <svg viewBox="0 0 48 24" class="wave"><path d="M5 15.5C11 5.5 17 5.5 24 12s13 6.5 19-3.5"/></svg>
+    <span>MARÉ</span>
+  </div>
+  <div class="loader-count"><span id="count">0</span><sup>%</sup></div>
+  <div class="loader-line"><i id="loadbar"></i></div>
+  <p class="loader-note">Best with sound on</p>
+</div>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="labels" aria-hidden="true"><svg id="leaders"></svg></div>
+<div id="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><i class="c-dot"></i><i class="c-ring"><b class="c-text">Drag</b></i></div>
+
+<header class="nav">
+  <a class="logo" href="#hero" data-hover>
+    <svg viewBox="0 0 48 24" class="wave"><path d="M5 15.5C11 5.5 17 5.5 24 12s13 6.5 19-3.5"/></svg>
+    MARÉ
+  </a>
+  <nav class="links">
+    <a href="#detail" data-hover>Craft</a>
+    <a href="#inside" data-hover>Inside</a>
+    <a href="#silence" data-hover>Silence</a>
+    <a href="#colors" data-hover>Colors</a>
+    <a href="#specs" data-hover>Specs</a>
+  </nav>
+  <div class="nav-right">
+    <button id="sound" class="sound" aria-pressed="false" data-hover>
+      <span class="bars"><i></i><i></i><i></i><i></i></span><span class="sound-label">Sound off</span>
+    </button>
+    <a href="#final" class="pill" data-hover data-magnet><span>Pre-order</span></a>
+  </div>
+</header>
+
+<div class="progress" aria-hidden="true"><i id="progress"></i></div>
+
+<main id="main">
+
+  <!-- 1. HERO -->
+  <section id="hero" class="sec tall" style="--h:200">
+    <div class="sticky stage">
+      <div class="hero-type" aria-hidden="true"><h1 id="bigword"><span class="ch"><span>M</span></span><span class="ch"><span>A</span></span><span class="ch"><span>R</span></span><span class="ch"><span>É</span></span></h1></div>
+      <div class="hero-photo"><img src="img/sand-2560.webp" srcset="img/sand-1440.webp 1440w, img/sand-2560.webp 2560w" sizes="100vw" alt="MARÉ headphones in Sand, floating in a dark studio"></div>
+      <div class="spot" aria-hidden="true"></div>
+      <div class="hero-foot">
+        <p class="kicker" data-show="-2,-1,.06,.35">Wireless over-ear<br>Adaptive noise cancelling</p>
+        <p class="hero-tag" data-show="-2,-1,.06,.35" data-split>Sound that moves like the tide.</p>
+        <a href="#detail" class="scroll-cue" data-show="-2,-1,.02,.2" data-hover><span>Scroll</span><i></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. CRAFT / MACRO -->
+  <section id="detail" class="sec tall" style="--h:260">
+    <div class="sticky stage">
+      <div class="macro"><img src="img/macro-2560.webp" srcset="img/macro-1440.webp 1440w, img/macro-2560.webp 2560w" sizes="100vw" alt="Macro detail of the brushed aluminum cap and knit cushion" loading="lazy"></div>
+      <div class="macro-shade"></div>
+      <div class="panel left bottom">
+        <p class="kicker" data-show=".55,.85,1.3,1.55"><b>01</b> Craft</p>
+        <h2 data-show=".6,1,1.3,1.6" data-split>Finished like a watch, worn like a sweater.</h2>
+        <p class="body" data-show=".75,1.05,1.3,1.55">Each cap is cut from one block of aluminum, brushed by hand in rings and sealed in a soft anodized tone. The cushions are knit, not glued.</p>
+      </div>
+      <div class="facts" data-show=".8,1.1,1.3,1.55">
+        <div><b>0.4 mm</b><span>Polished chrome seam</span></div>
+        <div><b>1,200</b><span>Brushed rings per cap</span></div>
+        <div><b>3D knit</b><span>Breathable cushion cover</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. INSIDE / BLUEPRINT -->
+  <section id="inside" class="sec tall" style="--h:300">
+    <div class="sticky blueprint">
+      <div class="panel left">
+        <p class="kicker" data-show=".2,.5,1.6,1.85"><b>02</b> Inside</p>
+        <h2 data-show=".25,.75,1.6,1.9" data-split>Built in layers, like the sea floor.</h2>
+        <p class="body" data-show=".45,.85,1.6,1.85">Nine parts and one quiet machine. Keep scrolling and it comes apart, piece by piece. Drag to turn it.</p>
+        <ul class="mobile-parts" data-show=".9,1.2,1.6,1.85">
+          <li><b>01</b> Aluminum cap</li><li><b>02</b> 30-hour battery</li><li><b>03</b> 40 mm driver</li><li><b>04</b> Memory foam</li>
+        </ul>
+      </div>
+      <p class="bp-note" data-show=".3,.6,1.6,1.85">Fig. 02 — Exploded view, right cup<br>Scale 1:1.6 · Units mm</p>
+    </div>
+  </section>
+
+  <!-- 4. SILENCE / LIFESTYLE -->
+  <section id="silence" class="sec tall" style="--h:300">
+    <div class="sticky stage">
+      <div class="life"><img src="img/life-2560.webp" srcset="img/life-1440.webp 1440w, img/life-2560.webp 2560w" sizes="100vw" alt="A woman wearing MARÉ headphones by the sea in Salvador at sunset" loading="lazy"></div>
+      <canvas id="waves" aria-hidden="true"></canvas>
+      <div class="noise-veil" aria-hidden="true"></div>
+      <div class="panel left top-left">
+        <p class="kicker" data-show=".15,.45,1.55,1.8"><b>03</b> Silence</p>
+        <h2 data-show=".2,.6,1.55,1.85" data-split>Noise rolls in. Then it doesn’t.</h2>
+      </div>
+      <div class="meter" data-show=".35,.7,1.55,1.8">
+        <div class="meter-bar"><i id="dbbar"></i><span>Ambient</span><span>Silence</span></div>
+        <div class="db"><span id="db">0</span><small>dB</small></div>
+        <div class="meter-copy">
+          <p class="body small">Six microphones listen 48,000 times a second and answer every wave with its mirror image.</p>
+          <button class="hint" id="soundHint" data-hover>Turn sound on to hear it</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. COLORS -->
+  <section id="colors" class="sec tall" style="--h:240">
+    <div class="sticky stage">
+      <div class="shots" id="shots">
+        <img class="shot on" data-color="sand" src="img/sand-2560.webp" srcset="img/sand-1440.webp 1440w, img/sand-2560.webp 2560w" sizes="100vw" alt="MARÉ in Sand" loading="lazy">
+        <img class="shot" data-color="ocean" src="img/ocean-2560.webp" srcset="img/ocean-1440.webp 1440w, img/ocean-2560.webp 2560w" sizes="100vw" alt="MARÉ in Ocean" loading="lazy">
+        <img class="shot" data-color="night" src="img/night-2560.webp" srcset="img/night-1440.webp 1440w, img/night-2560.webp 2560w" sizes="100vw" alt="MARÉ in Night" loading="lazy">
+      </div>
+      <div class="panel left">
+        <p class="kicker" data-show=".1,.4,1.1,1.35"><b>04</b> Colors</p>
+        <h2 data-show=".15,.55,1.1,1.4" data-split>Three tides.</h2>
+        <p class="body" data-show=".3,.65,1.1,1.35">Every finish is named after a moment on the Bay of All Saints.</p>
+        <div class="swatches" role="radiogroup" aria-label="Color" data-show=".4,.75,1.1,1.35">
+          <button class="sw active" data-color="sand" role="radio" aria-checked="true" data-hover><i style="--c:#cbb393"></i><span><b>Sand</b><em>Morning at Porto da Barra</em></span></button>
+          <button class="sw" data-color="ocean" role="radio" aria-checked="false" data-hover><i style="--c:#245d66"></i><span><b>Ocean</b><em>Noon off Itapuã</em></span></button>
+          <button class="sw" data-color="night" role="radio" aria-checked="false" data-hover><i style="--c:#2a2a2f"></i><span><b>Night</b><em>Low tide at Rio Vermelho</em></span></button>
+        </div>
+      </div>
+      <p class="shot-name" id="shotName" data-show=".4,.75,1.1,1.35"><span>Sand</span></p>
+    </div>
+  </section>
+
+  <!-- 6. SPECS -->
+  <section id="specs" class="sec specs">
+    <div class="specs-wrap">
+      <div class="specs-head">
+        <p class="kicker" data-show="-.55,-.2"><b>05</b> Specs</p>
+        <h2 data-show="-.5,-.1" data-split>Small numbers, big quiet.</h2>
+      </div>
+      <div class="grid">
+        <article class="card" data-show="-.35,0" data-hover><b><span data-count="30">0</span><sub>h</sub></b><p>Battery with cancelling on</p></article>
+        <article class="card" data-show="-.3,.05" data-hover><b><span data-count="5">0</span><sub>min</sub></b><p>Charge for three hours of play</p></article>
+        <article class="card" data-show="-.25,.1" data-hover><b><span data-count="268">0</span><sub>g</sub></b><p>Lighter than a paperback</p></article>
+        <article class="card" data-show="-.2,.15" data-hover><b><span data-count="38">0</span><sub>dB</sub></b><p>Peak noise reduction</p></article>
+        <article class="card" data-show="-.15,.2" data-hover><b><span data-count="2">0</span><sub>devices</sub></b><p>Connected at the same time</p></article>
+        <article class="card" data-show="-.1,.25" data-hover><b><span data-count="5.4" data-dec="1">0</span><sub>BT</sub></b><p>Bluetooth with lossless codec</p></article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FINAL -->
+  <section id="final" class="sec final">
+    <div class="final-photo"><img src="img/sand-1440.webp" alt="" loading="lazy"></div>
+    <div class="final-wrap">
+      <h2 data-show="-.5,-.1" data-split>Hear the tide turn.</h2>
+      <a href="#hero" class="cta" data-show="-.35,-.05" data-hover data-magnet><span>Pre-order <em>$349</em></span><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <p class="fine" data-show="-.25,0">Ships in Sand, Ocean and Night. Free returns for 30 days.</p>
+    </div>
+    <footer class="foot">
+      <span>MARÉ is a concept product. Design and code by <a href="https://arthurfonseca.framer.website/en/" target="_blank" rel="noopener" data-hover>Arthur Fonseca</a>, 2026. Imagery generated with AI and art-directed by the author.</span>
+      <span class="mono">Salvador, Brazil · 12°58′S 38°30′W</span>
+    </footer>
+  </section>
+
+</main>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
